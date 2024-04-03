@@ -26,9 +26,7 @@ class Indocker::ContainerDeployer
         end
       else
         Proc.new do |&block|
-          Thread.new do
-            block.call
-          end
+          block.call
         end
       end
 
@@ -44,9 +42,9 @@ class Indocker::ContainerDeployer
           )
 
         if result.exit_code != 0
-          exit 1 
+          exit 1
         end
-        
+
         @logger.info("Container deployment to #{server.user}@#{server.host} finished: #{container.name.to_s.green}")
 
         deploy_server.close_session
